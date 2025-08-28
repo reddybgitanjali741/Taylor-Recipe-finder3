@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder - Discover Amazing Recipes</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app" class="app">
+        <!-- Hero Header Section -->
+        <header class="hero-header">
+            <div class="hero-gradient"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-title-container">
+                        <div class="hero-icon">🍳</div>
+                        <h1 class="hero-title">Recipe Finder</h1>
+                    </div>
+                    <p class="hero-subtitle">Transform your ingredients into culinary masterpieces</p>
+                    <div class="hero-features">
+                        <div class="feature-badge">
+                            <span class="feature-icon">⚡</span>
+                            <span>Smart Search</span>
+                        </div>
+                        <div class="feature-badge">
+                            <span class="feature-icon">🌟</span>
+                            <span>Premium Recipes</span>
+                        </div>
+                        <div class="feature-badge">
+                            <span class="feature-icon">📱</span>
+                            <span>Mobile Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Enhanced Search Section -->
+                <section class="search-section">
+                    <div class="search-card">
+                        <div class="search-header">
+                            <h2 class="section-title">What's in your kitchen?</h2>
+                            <p class="section-subtitle">Add ingredients and we'll find perfect recipes for you</p>
+                        </div>
+
+                        <!-- Premium Ingredient Input -->
+                        <div class="ingredient-input-container">
+                            <div class="input-wrapper">
+                                <div class="input-icon">🔍</div>
+                                <input 
+                                    type="text" 
+                                    id="ingredient-input" 
+                                    class="premium-input"
+                                    placeholder="Type an ingredient (e.g., chicken, tomatoes, rice)..."
+                                    autocomplete="off"
+                                >
+                                <div class="input-focus-ring"></div>
+                            </div>
+                            <div class="ingredient-suggestions hidden" id="ingredient-suggestions"></div>
+                        </div>
+
+                        <!-- Quick Ingredient Selection -->
+                        <div class="quick-ingredients-section">
+                            <h4 class="quick-title">Popular ingredients</h4>
+                            <div class="ingredient-grid" id="ingredient-grid"></div>
+                        </div>
+
+                        <!-- Selected Ingredients Display -->
+                        <div class="selected-ingredients-section">
+                            <div class="ingredients-header">
+                                <h4 class="ingredients-title">Your ingredients</h4>
+                                <button class="btn-clear" id="clear-ingredients">
+                                    <span class="clear-icon">✕</span>
+                                    Clear all
+                                </button>
+                            </div>
+                            <div class="ingredient-chips-container" id="ingredient-chips">
+                                <div class="empty-ingredients-state">
+                                    <div class="empty-icon">🥘</div>
+                                    <p>No ingredients added yet. Start by selecting some above!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Filters Section -->
+                <section class="filters-section" id="filters-section">
+                    <div class="filters-card">
+                        <div class="filters-header">
+                            <h3 class="filters-title">Refine your search</h3>
+                            <button class="btn-secondary" id="random-recipe">
+                                <span class="btn-icon">🎲</span>
+                                Surprise me
+                            </button>
+                        </div>
+                        <div class="filters-grid">
+                            <div class="filter-group">
+                                <label class="filter-label">Cooking time</label>
+                                <select class="premium-select" id="time-filter">
+                                    <option value="">Any duration</option>
+                                    <option value="quick">⚡ Quick (< 30min)</option>
+                                    <option value="medium">⏰ Medium (30-60min)</option>
+                                    <option value="long">🕐 Slow (> 60min)</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label class="filter-label">Meal type</label>
+                                <select class="premium-select" id="category-filter">
+                                    <option value="">All categories</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label class="filter-label">Cuisine</label>
+                                <select class="premium-select" id="area-filter">
+                                    <option value="">World cuisine</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Results Section -->
+                <section class="results-section">
+                    <div class="results-header" id="results-header">
+                        <h2 class="results-title" id="results-title">Discover recipes</h2>
+                        <div class="results-meta">
+                            <div class="results-count" id="results-count"></div>
+                        </div>
+                    </div>
+
+                    <!-- Loading State with Skeleton -->
+                    <div class="loading-container hidden" id="loading-container">
+                        <div class="loading-header">
+                            <div class="loading-spinner"></div>
+                            <h3>Finding perfect recipes...</h3>
+                            <p>Searching through thousands of delicious options</p>
+                        </div>
+                        <div class="skeleton-grid">
+                            <div class="skeleton-card">
+                                <div class="skeleton-image"></div>
+                                <div class="skeleton-content">
+                                    <div class="skeleton-title"></div>
+                                    <div class="skeleton-meta"></div>
+                                    <div class="skeleton-tags"></div>
+                                </div>
+                            </div>
+                            <div class="skeleton-card">
+                                <div class="skeleton-image"></div>
+                                <div class="skeleton-content">
+                                    <div class="skeleton-title"></div>
+                                    <div class="skeleton-meta"></div>
+                                    <div class="skeleton-tags"></div>
+                                </div>
+                            </div>
+                            <div class="skeleton-card">
+                                <div class="skeleton-image"></div>
+                                <div class="skeleton-content">
+                                    <div class="skeleton-title"></div>
+                                    <div class="skeleton-meta"></div>
+                                    <div class="skeleton-tags"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Error State -->
+                    <div class="error-container hidden" id="error-container">
+                        <div class="error-content">
+                            <div class="error-icon">😅</div>
+                            <h3 class="error-title">Oops! Something went wrong</h3>
+                            <p class="error-message" id="error-message">We couldn't fetch recipes right now. Please try again in a moment.</p>
+                            <button class="btn-primary" id="retry-button">
+                                <span class="btn-icon">🔄</span>
+                                Try again
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div class="empty-container" id="empty-container">
+                        <div class="empty-content">
+                            <div class="empty-illustration">
+                                <div class="cooking-pot">🍲</div>
+                                <div class="cooking-steam">💨</div>
+                            </div>
+                            <h3 class="empty-title">Ready to cook something amazing?</h3>
+                            <p class="empty-message">Add some ingredients above to discover recipes you can make right now</p>
+                            <div class="empty-suggestions">
+                                <p class="suggestions-text">Popular combinations:</p>
+                                <div class="suggestion-chips">
+                                    <button class="suggestion-chip" data-ingredients="chicken,rice">Chicken & Rice</button>
+                                    <button class="suggestion-chip" data-ingredients="pasta,tomatoes">Pasta & Tomatoes</button>
+                                    <button class="suggestion-chip" data-ingredients="eggs,cheese">Eggs & Cheese</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recipe Grid -->
+                    <div class="recipe-grid" id="recipe-grid"></div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Premium Recipe Modal -->
+        <div class="modal-overlay hidden" id="modal-overlay">
+            <div class="modal-container">
+                <div class="modal-header">
+                    <button class="modal-close-btn" id="modal-close" aria-label="Close recipe details">
+                        <span class="close-icon">✕</span>
+                    </button>
+                </div>
+                <div class="modal-content" id="modal-content">
+                    <div class="recipe-hero">
+                        <div class="recipe-image-container">
+                            <img id="modal-recipe-image" class="recipe-modal-image" alt="Recipe image" />
+                            <div class="recipe-overlay">
+                                <h2 class="recipe-modal-title" id="modal-recipe-title">Recipe Title</h2>
+                                <div class="recipe-badges">
+                                    <span class="recipe-badge category-badge" id="modal-recipe-category"></span>
+                                    <span class="recipe-badge cuisine-badge" id="modal-recipe-area"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-details-container">
+                        <div class="recipe-details-grid">
+                            <div class="ingredients-section">
+                                <div class="section-header">
+                                    <h3 class="section-title">Ingredients</h3>
+                                    <div class="serving-controls">
+                                        <button class="serving-btn" id="decrease-serving">−</button>
+                                        <span class="serving-count" id="serving-count">4</span>
+                                        <button class="serving-btn" id="increase-serving">+</button>
+                                        <span class="serving-label">servings</span>
+                                    </div>
+                                </div>
+                                <ul class="ingredients-list" id="modal-ingredients"></ul>
+                            </div>
+                            
+                            <div class="instructions-section">
+                                <div class="section-header">
+                                    <h3 class="section-title">Instructions</h3>
+                                    <button class="cooking-timer-btn" id="start-timer">
+                                        <span class="timer-icon">⏲️</span>
+                                        Start cooking
+                                    </button>
+                                </div>
+                                <div class="instructions-content" id="modal-instructions"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="recipe-actions">
+                            <button class="action-btn favorite-btn" id="favorite-btn">
+                                <span class="heart-icon">🤍</span>
+                                Save recipe
+                            </button>
+                            <button class="action-btn share-btn" id="share-btn">
+                                <span class="share-icon">📤</span>
+                                Share
+                            </button>
+                            <div class="recipe-links" id="modal-links"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cooking Timer Modal -->
+        <div class="timer-modal hidden" id="timer-modal">
+            <div class="timer-content">
+                <div class="timer-header">
+                    <h3>Cooking Timer</h3>
+                    <button class="timer-close" id="timer-close">✕</button>
+                </div>
+                <div class="timer-display">
+                    <div class="timer-circle">
+                        <span class="timer-time" id="timer-time">00:00</span>
+                    </div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-btn" id="timer-start">Start</button>
+                    <button class="timer-btn" id="timer-pause">Pause</button>
+                    <button class="timer-btn" id="timer-reset">Reset</button>
+                </div>
+                <div class="timer-presets">
+                    <button class="preset-btn" data-time="300">5 min</button>
+                    <button class="preset-btn" data-time="900">15 min</button>
+                    <button class="preset-btn" data-time="1800">30 min</button>
+                    <button class="preset-btn" data-time="3600">1 hour</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
